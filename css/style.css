@@ -1,0 +1,650 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #333333;
+  font-family:
+    "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+    Meiryo, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ヘッダー */
+
+/* ヘッダー全体の固定 */
+.lp-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ヘッダーの内枠 */
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+}
+
+/* ロゴ */
+.header-logo a {
+  color: #1a365d;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* PC */
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list a {
+  color: #333333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #1a365d;
+}
+
+/* 資料請求・来場予約ボタン */
+.nav-list a.btn-contact {
+  padding: 10px 20px;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #b7791f;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-list a.btn-contact:hover {
+  color: #ffffff;
+  background-color: #975a16;
+}
+
+/* --- header設定ここまで --- */
+
+/* ハンバーガーボタン (PCでは非表示) */
+.hamburger-btn {
+  display: none;
+  position: relative;
+  z-index: 2000;
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 三本線の共通設定 */
+.hamburger-btn span {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333333;
+  transition: all 0.3s ease;
+}
+
+.hamburger-btn span:nth-child(1) {
+  top: 0;
+}
+.hamburger-btn span:nth-child(2) {
+  top: 11px;
+}
+.hamburger-btn span:nth-child(3) {
+  bottom: 0;
+}
+
+/* メニュー開閉時 */
+.hamburger-btn.is-active span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+.hamburger-btn.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-btn.is-active span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+/* --- ハンバーガーボタン設定ここまで --- */
+
+/* 画像設定 */
+.main-visual-img {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 70px);
+  overflow: hidden; /* 枠からはみ出た画像を隠す */
+}
+
+/* imgタグを枠いっぱいに広げる */
+.mv-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ★CSSのbackground-size: coverと同じ効果 */
+  object-position: center;
+}
+
+/* 画像を少し曇らせる */
+.main-visual-img::after {
+  content: ""; /* 必須 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+/* テキストスタイル */
+.mv-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ffffff;
+  z-index: 3;
+}
+
+/* テキストに影を追加 */
+.mv-title {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+/* -- 画像設定ここまで -- */
+
+/* スクロールアローアニメーション */
+.mv-scroll {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  text-align: center;
+}
+
+/* SCROLLのテキストスタイル */
+.mv-scroll span {
+  display: block;
+  color: #ffffff;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  font-weight: 500;
+  padding-bottom: 60px;
+  position: relative;
+}
+
+/* 縦矢印作成 */
+.mv-scroll span::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  height: 50px;
+  background-color: #ffffff;
+  /* 1.4秒かけてループ再生 */
+  animation: scrollArrow 1.4s ease-in-out infinite;
+}
+
+/* アニメーションの動き */
+@keyframes scrollArrow {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+/* --- Scrollアニメーション設定ここまで --- */
+
+/* ==========================================================================
+   事業紹介（OUR BUSINESS）セクション
+   ========================================================================== */
+
+/* コンテナ全体の余白調整 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px; /* 前後のセクションとの間隔 */
+}
+
+/* セクションヘッダー */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b7791f; /* ヘッダーの金色のアクセントカラーと同期 */
+  letter-spacing: 0.15em;
+  margin: 0 0 8px 0;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a365d; /* ロゴの紺色と同期して統一感を付与 */
+  margin: 0;
+}
+
+.underline {
+  width: 40px;
+  height: 3px;
+  background-color: #b7791f; /* アクセントカラーのライン */
+  margin: 15px auto 0;
+}
+
+/* 事業カード（グリッドレイアウト） */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.service-card {
+  background-color: #ffffff;
+  border-radius: 4px; /* 全体のボタンに合わせた角丸 */
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* ホバー時に上品に浮き上がる演出 */
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-image img {
+  width: 100%;
+  height: 240px; /* 高さを統一 */
+  object-fit: cover;
+  vertical-align: bottom;
+}
+
+.service-content {
+  padding: 30px;
+  position: relative;
+}
+
+/* 背景に配置する薄いナンバリング */
+.service-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: rgba(183, 121, 31, 0.08); /* 金色を極めて薄く敷く */
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  line-height: 1;
+}
+
+.service-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a365d;
+  margin: 0 0 15px 0;
+}
+
+.service-text {
+  font-size: 0.9rem;
+  color: #555555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* 採用情報（RECRUIT）セクション */
+.recruit-section {
+  background-color: #f7fafc;
+}
+
+.recruit-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+/* セクションヘッダー */
+.recruit-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.recruit-subtitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #b7791f; /* 金色 */
+  letter-spacing: 0.15em;
+  margin: 0 0 8px 0;
+}
+
+.recruit-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a365d; /* 紺色 */
+  margin: 0;
+}
+
+.recruit-underline {
+  width: 40px;
+  height: 3px;
+  background-color: #b7791f;
+  margin: 15px auto 0;
+}
+
+/* レイアウト配置 */
+.recruit-wrapper {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+/* 左側：メッセージ */
+.recruit-message {
+  flex: 1;
+}
+
+.recruit-catch {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a365d;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+.recruit-text {
+  font-size: 0.95rem;
+  color: #555555;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* 右側：職種リンク一覧 */
+.recruit-jobs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.job-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  border-left: 0 solid #b7791f;
+  transition: all 0.3s ease;
+}
+
+/* ホバー時に左側に金色のラインが出て少し右にずれる演出 */
+.job-card:hover {
+  border-left: 4px solid #b7791f;
+  padding-left: 26px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.job-category {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #b7791f;
+  background-color: rgba(183, 121, 31, 0.1);
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+.job-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #333333;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.job-card:hover .job-name {
+  color: #1a365d;
+}
+
+/* 矢印（＞）の簡易作成 */
+.job-arrow {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.job-arrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #b7791f;
+  border-right: 2px solid #b7791f;
+  transform: translateY(-50%) rotate(45deg);
+  transition: right 0.3s ease;
+}
+
+.job-card:hover .job-arrow::after {
+  right: 0; /* ホバー時に矢印が少し右に動く */
+}
+
+/* ==========================================================================
+   フッター（FOOTER）セクション
+   ========================================================================== */
+.lp-footer {
+  background-color: #1a365d; /* ロゴ色と同じ重厚感のある紺色をベースに */
+  color: #ffffff;
+  padding: 60px 20px 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 上部レイアウト配置（情報とリンクを左右に振る） */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 薄い境界線 */
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+}
+
+/* 左側：会社情報エリア */
+.footer-info {
+  max-width: 400px;
+}
+
+.footer-logo a {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.company-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 15px 0 5px 0;
+}
+
+.company-address {
+  font-size: 0.85rem;
+  color: #cccccc;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 右側：ナビゲーションリンク */
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+/* ホバー時にゴールドへ変化 */
+.footer-links a:hover {
+  color: #b7791f;
+}
+
+/* 下部：コピーライトエリア */
+.footer-bottom {
+  text-align: center;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: #a0aec0;
+  margin: 0;
+}
+
+/* レスポンシブ(スマホ) */
+@media (max-width: 768px) {
+  /* ボタンを表示 */
+  .hamburger-btn {
+    display: block;
+  }
+
+  /* ドロワーメニューの全画面覆い */
+  .header-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 1500;
+    width: 100%;
+    height: 100vh;
+    padding-top: 90px;
+    background-color: rgba(255, 255, 255, 0.98);
+    transition: right 0.3s ease;
+  }
+
+  /* メニュー展開時 */
+  .header-nav.is-active {
+    right: 0;
+  }
+
+  /* メニューを縦並びに変更 */
+  .nav-list {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .nav-list a {
+    font-size: 1.2rem;
+  }
+
+  /* 事業紹介セクション */
+  .container {
+    padding: 70px 20px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr; /* スマホ環境では1列にスッキリ並べる */
+    gap: 30px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .recruit-container {
+    padding: 70px 20px;
+  }
+
+  .recruit-wrapper {
+    flex-direction: column; /* スマホでは縦並びに */
+    gap: 40px;
+  }
+
+  .recruit-catch {
+    font-size: 1.5rem;
+  }
+
+  .sp-only {
+    display: block;
+  }
+
+  .job-card {
+    padding: 20px;
+  }
+
+  .job-card:hover {
+    padding-left: 16px;
+  }
+
+  .lp-footer {
+    padding: 50px 20px 20px;
+  }
+
+  .footer-top {
+    flex-direction: column; /* 縦並びに変更 */
+    gap: 40px;
+    padding-bottom: 30px;
+  }
+
+  .footer-links {
+    gap: 15px;
+  }
+}
+@media (min-width: 769px) {
+  .sp-only {
+    display: none;
+  }
+}
+/* --- レスポンシブ(スマホ)設定ここまで --- */
